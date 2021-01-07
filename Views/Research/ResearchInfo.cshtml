@@ -1,0 +1,221 @@
+﻿@model Reseaarch_Alliances.Models.tblresearch
+
+@{
+    ViewBag.Title = "Research Info";
+    Layout = "~/Views/Shared/_User.cshtml";
+
+
+    IEnumerable<Reseaarch_Alliances.Models.tblresearchupdatelike> researchUpdateLikes = ViewData["researchUpdateLikes"] as IEnumerable<Reseaarch_Alliances.Models.tblresearchupdatelike>;
+    IEnumerable<Reseaarch_Alliances.Models.tblresearchupdate> researchUpdates = ViewData["researchUpdates"] as IEnumerable<Reseaarch_Alliances.Models.tblresearchupdate>;
+}
+
+<!-- Page Header Start -->
+<div class="page--header pt--60 pb--60 text-center" data-bg-img="img/page-header-img/bg.jpg" data-overlay="0.85">
+    <div class="container">
+        <div class="title">
+            <h2 class="h1 text-white">Research Details</h2>
+        </div>
+
+        <ul class="breadcrumb text-gray ff--primary">
+            <li><a href="#" class="btn-link">Home</a></li>
+            <li><a href="#" class="btn-link">Researches</a></li>
+            <li class="active"><span class="text-primary">Research Details</span></li>
+        </ul>
+    </div>
+</div>
+<!-- Page Header End -->
+<!-- Page Wrapper Start -->
+<section class="page--wrapper pt--80 pb--20">
+    <div class="container">
+        <!-- Main Content Start -->
+        <div class="main--content col-md-12" data-trigger="stickyScroll">
+            <div class="main--content-inner">
+                <div class="col-md-12 col-sm-12 pb--60">
+                    <!-- Product Gallery Start -->
+                    <div class="product--gallery">
+                        <!-- Tab Content Start -->
+                        <div class="tab-content">
+                            <div class="tab-pane fade in active" id="productImg01">
+                                <div data-trigger="zoom">
+                                    <img src="~/Content/Images/Research/@Model.FeaturedImage" alt="">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Tab Content End -->
+                        <!-- Owl Carousel End -->
+                    </div>
+                    <!-- Product Gallery End -->
+                </div>
+
+                <div class="col-md-12 col-sm-12 pb--60">
+                    <div class="col-md-3 float--right" id="followUnfollow">
+                        @if (Model.UserID != Convert.ToInt32(Session["UserID"]))
+                        {
+                            if (ViewBag.isRequestSend)
+                            {
+                                <a class="btn btn-info font-weight-lighter" href="#" style="margin:10px">Follow Request Send</a>
+                            }
+                            else if (ViewBag.isFollowed)
+                            {
+                                <a class="btn btn-info font-weight-lighter" onclick="UnfollowRsh(@Model.ResearchID)" style="margin:10px">Unfollow</a>
+                            }
+                            else
+                            {
+                                <a class="btn btn-info font-weight-lighter" onclick="followRshRequest(@Model.ResearchID)" style="margin:10px">Follow</a>
+                            }
+                        }
+
+
+                    </div>
+                    <!-- Product Summery Start -->
+                    <div class="product--summery fs--14">
+
+                        <div class="title">
+                            <font style="font-size:3em;color:black">@Model.Title</font>
+                        </div>
+
+                        <div class="review--count text-darkest">
+                            <p>
+                                <a href="#" class="btn-link">
+                                    <i class="mr--8 text-default fa fa-tag"></i>
+                                    <span>@Model.tblsubcategory.SubCategoryName</span>
+                                </a>
+                            </p>
+                            <p>
+                                <a href="#" class="btn-link">
+                                    <i class="mr--8 text-default fa fa-calendar"></i>
+                                    <span>@Model.CreatedDt</span>
+                                </a>
+                            </p>
+                        </div>
+
+
+                        <div class="desc border-bottom border-dark">
+                            <p style="font-size:1.3em;margin-bottom:15px">
+                                @Model.Description
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Product Summery End -->
+                </div>
+
+
+                @if (ViewBag.isFollowed)
+                {
+                    <!-- Product Details Nav Start -->
+                    <div class="product--details-nav">
+                        <ul class="nav ff--primary fs--18 fw--600 text-black bg-lighter">
+                            <li class="active">
+                                <a href="#produtDetailsTab01" data-toggle="tab">Research Updates</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- Product Details Nav End -->
+                    <!-- Product Details Start -->
+                    <div class="product--details tab-content pb--60">
+                        <!-- Tab Pane Start -->
+                        <form method="post" action="@Url.Action("postRshUpdate","Research",new { rid=Model.ResearchID })">
+                            <div class="form-group" style="margin-top:30px">
+                                <label class="control-label col-md-2 font-weight-bold" style="font-size:1.5em">Update Research</label>
+                                <div class="col-md-11" style="margin-top:10px">
+                                    <textarea rows="5" name="rshDesc" class="form-control"></textarea>
+                                </div>
+                                <div class="col-md-3" style="margin-top:10px">
+                                    <input type="submit" value="Update" class="btn btn-info" />
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                    <!-- Product Details End -->
+
+                    <div class="col-md-12" style="margin-top:30px">
+                        <h3>Updates</h3>
+                        @foreach (var item in researchUpdates)
+                        {
+                            <div class="topic--reply" style="margin-top:15px">
+                                <div class="header clearfix">
+                                    <p class="date float--left">@item.CreatedDt</p>
+                                </div>
+
+                                <div class="body clearfix">
+                                    <div class="author mr--20 float--left text-center">
+                                        <div class="avatar" data-overlay="0.3" data-overlay-color="primary">
+                                            <a href="@Url.Action("Index","User",new { id=item.UserID })">
+                                                <img src="~/Content/Images/User/@item.tbluser.ProfilePic" alt="">
+                                            </a>
+                                        </div>
+
+                                        <div class="name text-darkest">
+                                            <p><a href="@Url.Action("Index","User",new { id=item.UserID })">@item.tbluser.UserName</a></p>
+                                        </div>
+                                    </div>
+
+                                    <div class="content pt--20 fs--14 ov--h" style="margin-left:15px">
+                                        <p style="font-weight:bolder;font-size:1.5em">
+                                            @item.UpdateDescription
+                                        </p>
+                                        <a class="text-decoration-none" id="like_@item.ResearchUpdateID" onclick="likeUnlikeUpdate(@item.ResearchUpdateID)">
+                                            @{
+                                                int uid = Convert.ToInt32(Session["UserID"]);
+                                                bool isAvailable = researchUpdateLikes.ToList().Exists(t => t.ResearchUpdateID == item.ResearchUpdateID && t.UserID == uid);
+                                            }
+                                            @if (isAvailable)
+                                            {
+                                                <i class="fa fa-heart" style="color:red;font-size:1.5em;margin-left:10px"></i>
+                                            }
+                                            else
+                                            {
+                                                <i class="fa fa-heart-o" style="color:red;font-size:1.5em;margin-left:10px"></i>
+                                            }
+
+                                        </a>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        }
+                    </div>
+                }
+
+
+            </div>
+        </div>
+        <!-- Main Content End -->
+    </div>
+</section>
+<!-- Page Wrapper End -->
+
+<script>
+
+    function followRshRequest(id) {
+        $.ajax({
+            url: "@Url.Action("followRshRequest","Research")?rid="+id,
+            success: function (result) {
+                $("#followUnfollow").html(result);
+            }
+        });
+    }
+
+    function UnfollowRsh(id) {
+        $.ajax({
+            url: "@Url.Action("UnfollowRsh","Research")?rid="+id,
+            success: function (result) {
+                $("#followUnfollow").html(result);
+            }
+        });
+    }
+
+    function likeUnlikeUpdate(id) {
+        var uid = id;
+        $.ajax({
+            url: "@Url.Action("likeUnlikeUpdate","Research")?ruid="+id,
+            success: function (result) {
+                $("#like_"+uid).html(result);
+            }
+        });
+    }
+
+</script>

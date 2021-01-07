@@ -1,0 +1,109 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_User.cshtml";
+
+    IEnumerable<Reseaarch_Alliances.Models.tblarticle> recentArticles = ViewData["recentArticles"] as IEnumerable<Reseaarch_Alliances.Models.tblarticle>;
+    IEnumerable<Reseaarch_Alliances.Models.tblresearch> recentResearches = ViewData["recentResearches"] as IEnumerable<Reseaarch_Alliances.Models.tblresearch>;
+}
+
+
+<!-- Features Section Start -->
+<section class="section bg-lighter pt--80 pb--40">
+    <div class="container">
+        <div class="col-md-12 pb--40">
+            <div class="main--content-inner drop--shadow">
+                <!-- Filter Nav Start -->
+                <div class="filter--nav pb--60 clearfix">
+                    <div class="filter--link float--left">
+                        <h2 class="h4"><a href="members.html" class="btn-link">Recent Articles</a></h2>
+                    </div>
+                </div>
+                <!-- Filter Nav End -->
+                <!-- Activity List Start -->
+                <div class="activity--list">
+                    <!-- Activity Items Start -->
+                    <ul class="activity--items nav">
+                        @foreach (var item in recentArticles)
+                        {
+                            <li>
+                                <!-- Activity Item Start -->
+                                <div class="activity--item">
+                                    <div class="activity--avatar">
+                                        <a href="@Url.Action("Index","User",new { id=item.tbluser.UserID })">
+                                            <img src="~/Content/Images/User/@item.tbluser.ProfilePic" alt="">
+                                        </a>
+                                    </div>
+
+                                    <div class="activity--info fs--14">
+                                        <div class="activity--header">
+                                            <p><a href="@Url.Action("ArticleInfo","Articles",new { id=item.ArticleID })">@item.Title</a></p>
+                                        </div>
+
+                                        <div class="activity--meta fs--12">
+                                            <p><i class="fa mr--8 fa-clock-o"></i>@item.CreatedDt</p>
+                                        </div>
+
+                                        <div class="activity--content">
+                                            <div class="img--embed">
+                                                <img src="~/Content/Images/Post/@item.FeaturedImage" alt="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Activity Item End -->
+                            </li>
+
+                        }
+                    </ul>
+                    <!-- Activity Items End -->
+                </div>
+                <!-- Activity List End -->
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Features Section End -->
+
+<section class="section bg-lighter pt--80 pb--20">
+    <div class="container">
+        <h3>Recent Researches</h3>
+        <div class="row row--md-vc">
+            @foreach (var item in recentResearches)
+            {
+                <div class="col-md-6 pb--60">
+                    <!-- Video Popup Start -->
+                    <a href="@Url.Action("ResearchInfo","Research",new { id=item.ResearchID })">
+                        <div class="video--popup style--2" data-overlay="0.3">
+                            <img src="~/Content/Images/Research/@item.FeaturedImage" alt="">
+                        </div>
+                    </a>
+                    <!-- Video Popup End -->
+                </div>
+
+                <div class="col-md-6 pb--60">
+                    <!-- Text Block Start -->
+                    <div class="text--block">
+                        <div class="title">
+                            <h2 class="h2 fw--600">
+                                <a href="@Url.Action("ResearchInfo","Research",new { id=item.ResearchID })">@item.Title</a>
+                            </h2>
+                        </div>
+
+                        <div class="content fs--14">
+                            <p>
+                                @item.Description
+                            </p>
+                        </div>
+
+                        <div class="action">
+                            <a href="@Url.Action("ResearchInfo","Research",new { id=item.ResearchID })" class="btn btn-default">Read More<i class="fa ml--10 fa-caret-right"></i></a>
+
+                        </div>
+                    </div>
+                    <!-- Text Block End -->
+                </div>
+            }
+        </div>
+    </div>
+</section>

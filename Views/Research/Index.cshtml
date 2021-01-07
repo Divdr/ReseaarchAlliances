@@ -1,0 +1,78 @@
+﻿@model IEnumerable<Reseaarch_Alliances.Models.tblresearch>
+
+@{
+    ViewBag.Title = "Researches";
+    Layout = "~/Views/Shared/_User.cshtml";
+}
+
+
+<!-- Page Header Start -->
+<div class="page--header pt--60 pb--60 text-center" data-bg-img="img/page-header-img/bg.jpg" data-overlay="0.85">
+    <div class="container">
+        <div class="title">
+            <h2 class="h1 text-white">Researches</h2>
+        </div>
+
+        <ul class="breadcrumb text-gray ff--primary">
+            <li><a href="#" class="btn-link">Home</a></li>
+            <li class="active"><span class="text-primary">Researches</span></li>
+        </ul>
+    </div>
+</div>
+<!-- Page Header End -->
+<!-- Page Wrapper Start -->
+<section class="page--wrapper pt--80 pb--20">
+    <div class="container">
+        <div class="row">
+            <!-- Main Content Start -->
+            <div class="main--content col-md-12 pb--30">
+                <div class="main--content-inner">
+                    <div class="row AdjustRow">
+                        @foreach (var item in Model)
+                        {
+                            <div class="col-md-3 col-xs-6 col-xxs-12 pb--30">
+                                <!-- Product Item Start -->
+                                <div class="product--item" data-scroll-reveal="bottom">
+                                    <!-- Product Image Start -->
+                                    <div class="product--img">
+                                        <img src="~/Content/Images/Research/@item.FeaturedImage" alt="">
+
+                                        <div class="action">
+                                            <a href="@Url.Action("ResearchInfo","Research",new { id=item.ResearchID })">
+                                                <i class="fa fa-eye"></i>
+                                                <span>View Details</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <!-- Product Image End -->
+                                    <!-- Product Info Start -->
+                                    <div class="product--info text-center">
+                                        <div class="title">
+                                            <h3 class="h4">
+                                                <a href="@Url.Action("ResearchInfo","Research",new { id=item.ResearchID })" class="btn-link" style="text-transform:capitalize;font-size:1.2em">@item.Title</a>
+                                            </h3>
+                                        </div>
+                                        <div class="cat">
+                                            <p>
+                                                <i class="fa fa-tag" style="margin-right:5px"></i>@item.tblsubcategory.SubCategoryName
+                                            </p>
+                                        </div>
+
+                                        <div class="price text-darkest">
+                                            <p><span class="text-default mr--15">@item.CreatedDt</span></p>
+                                        </div>
+
+                                    </div>
+                                    <!-- Product Info End -->
+                                </div>
+                                <!-- Product Item End -->
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <!-- Main Content End -->
+        </div>
+    </div>
+</section>
+<!-- Page Wrapper End -->

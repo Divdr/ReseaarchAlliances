@@ -1,0 +1,13 @@
+﻿@model IEnumerable<Reseaarch_Alliances.Models.tblcity>
+
+@{
+    Layout = null;
+}
+
+<select name="CityID" required class="form-control">
+    <option>Select City</option>
+    @foreach (var item in Model)
+    {
+        <option value="@item.CityID">@item.CityName</option>
+    }
+</select>

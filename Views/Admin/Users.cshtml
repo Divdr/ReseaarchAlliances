@@ -1,0 +1,78 @@
+﻿@model IEnumerable<Reseaarch_Alliances.Models.tbluser>
+
+@{
+    ViewBag.Title = "Users";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">@ViewBag.Title</h3>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+            <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model=> model.ProfilePic );
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.tblcity.CityName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.UserName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.FirstName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.LastName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Email)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.DOB)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.MoNumber)
+                        </th>
+                    </tr>
+                </thead>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <img src="~/Content/Images/User/@item.ProfilePic" height="50px" width="50px" />
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.tblcity.CityName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FirstName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LastName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DOB)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MoNumber)
+                        </td>
+                    </tr>
+                }
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+        <!-- /.card-body -->
+    </div>
+

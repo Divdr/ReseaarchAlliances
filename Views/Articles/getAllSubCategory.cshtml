@@ -1,0 +1,13 @@
+﻿@model IEnumerable<Reseaarch_Alliances.Models.tblsubcategory>
+
+@{
+    Layout = null;
+}
+
+<select name="SubCategoryID" class="form-control" required>
+    <option>Select Sub Category</option>
+    @foreach (var item in Model)
+    {
+        <option value="@item.SubCategoryID">@item.SubCategoryName</option>
+    }
+</select>

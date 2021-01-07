@@ -1,0 +1,48 @@
+﻿@model IEnumerable<Reseaarch_Alliances.Models.tblresearchrequest>
+
+@{
+    Layout = null;
+}
+
+<table class="table mt-15">
+    <thead class="ff--primary fs--14 text-darkest">
+        <tr>
+            <th>Research Title</th>
+            <th>UserName</th>
+            <th>Accept</th>
+            <th>Reject</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                <h4 class="fw--600 text-darkest font-weight-bold">
+                    <a href="@Url.Action("ResearchInfo","Research",new { id=item.ResearchID })" class="btn-link">@item.tblresearch.Title</a>
+                </h4>
+            </td>
+            <td>
+                <h6 class="fw--600 text-darkest font-weight-bold">
+                    <a href="#" class="btn-link">@item.tbluser.UserName</a>
+                </h6>
+            </td>
+            <td>
+                <a href='@Url.Action("AcceptRejectReq","Research",new { id = item.ResearchRequestID , op = 0 })'>
+                    <i style="cursor:pointer" class="fa fa-check"></i>
+                </a>
+            </td>
+            <td>
+                <a href='@Url.Action("AcceptRejectReq","Research",new { id = item.ResearchRequestID , op = 1 })'>
+                    <i style="cursor:pointer" class="fa fa-remove"></i>
+                </a>
+            </td>
+        </tr>
+
+        }
+    </tbody>
+</table>
+
+
+

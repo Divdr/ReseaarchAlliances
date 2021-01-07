@@ -1,0 +1,64 @@
+﻿@model IEnumerable<Reseaarch_Alliances.Models.tblresearch>
+
+@{
+    Layout = null;
+}
+<!-- Topics List Start -->
+@if (ViewBag.currentUserID == Convert.ToInt32(Session["UserID"]))
+{
+    <a class="btn btn-info" href="@Url.Action("AddResearch", "Research")" style="float:right;">Add Research</a>
+}
+<table class="table mt-15">
+    <thead class="ff--primary fs--14 text-darkest">
+        <tr>
+            <th>Title</th>
+            <th>Created Date</th>
+            @if (ViewBag.currentUserID == Convert.ToInt32(Session["UserID"]))
+            {
+                <th>Delete</th>
+                <th>Edit</th>
+                <th>Update Image</th>
+            }
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <h4 class="fw--600 text-darkest font-weight-bold">
+                        <a href="@Url.Action("ResearchInfo","Research",new { id=item.ResearchID })" class="btn-link">@item.Title</a>
+                    </h4>
+                </td>
+                <td>
+                    <i class="text-primary fa fa-paperclip"></i>
+
+                    <p>@item.CreatedDt</p>
+
+                </td>
+                @if (ViewBag.currentUserID == Convert.ToInt32(Session["UserID"]))
+                {
+                    <td>
+                        <a href="@Url.Action("removeResearch", "Research", new { id = item.ResearchID })">
+                            <i style="cursor:pointer" class="fa fa-remove"></i>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="@Url.Action("EditResearch", "Research", new { id = item.ResearchID })">
+                            <i style="cursor:pointer" class="fa fa-edit"></i>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="@Url.Action("EditFeaturedResearch", "Research", new { id = item.ResearchID })">
+                            <i style="cursor:pointer" class="fa fa-camera"></i>
+                        </a>
+                    </td>
+                }
+            </tr>
+
+        }
+    </tbody>
+</table>
+
+

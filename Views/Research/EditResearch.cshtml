@@ -1,0 +1,69 @@
+﻿@model Reseaarch_Alliances.Models.tblresearch
+
+@{
+    ViewBag.Title = "Edit Research";
+    Layout = "~/Views/Shared/_User.cshtml";
+}
+
+<div class="contact--section pt--50">
+    <div class="container">
+
+        <div class="col-md-12 pb--60">
+            <!-- Contact Form Start -->
+            <div class="contact--form" data-form="ajax">
+                <div class="contact--title">
+                    <h3 class="h4">Edit Research</h3>
+                </div>
+                @using (Html.BeginForm("UpdateResearch","Research",FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.ResearchID)
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.TextAreaFor(model => model.Description,5,120, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Update" class="btn btn-default" />
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+            <!-- Contact Form End -->
+        </div>
+    </div>
+</div>
+
+<script>
+
+    window.onload = getAllSubCategory;
+
+    function getAllSubCategory() {
+        $.ajax({
+            url: "@Url.Action("getAllSubCategory","Articles")",
+            success: function (result) {
+                $("#SubCat").html(result);
+            }
+        });
+    }
+
+</script>
+

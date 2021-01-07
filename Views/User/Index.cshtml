@@ -1,0 +1,147 @@
+﻿@model Reseaarch_Alliances.Models.tbluser
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_User.cshtml";
+}
+
+<!-- Cover Header Start -->
+<div class="cover--header pt--80 text-center" data-bg-img="img/cover-header-img/bg-01.jpg" data-overlay="0.6" data-overlay-color="white">
+    <div class="container">
+        <div class="cover--avatar online" data-overlay="0.3" data-overlay-color="primary">
+            <img src="~/Content/Images/User/@Model.ProfilePic" alt="">
+        </div>
+
+        <div class="cover--user-name">
+            <h2 class="h3 fw--600">@Model.UserName</h2>
+        </div>
+    </div>
+</div>
+<!-- Cover Header End -->
+<!-- Page Wrapper Start -->
+<section class="page--wrapper pt--80 pb--20">
+    <div class="container">
+        <!-- Main Content Start -->
+        <div class="main--content col-md-10 col-md-offset-1 pb--60" data-trigger="stickyScroll">
+            <div class="main--content-inner drop--shadow">
+                <!-- Content Nav Start -->
+                <div class="content--nav pb--30">
+                    <ul class="nav ff--primary fs--14 fw--500 bg-lighter" style="cursor:pointer">
+                        <li class="active"><a href="@Url.Action("Index","User",new { id=ViewContext.RouteData.Values["id"] })">Profile</a></li>
+                        @if (Model.UserID == Convert.ToInt32(Session["UserID"]))
+                        {
+                            <li><a onclick="MyInfo()">Edit My Info</a></li>
+                            <li><a onclick="MyResearcheReq()">Research Requests</a></li>
+                            <li><a onclick="changeProfile()">Update Profile</a></li>
+                            <li><a onclick="changePassword()">Change Password</a></li>
+                        }
+                        <li><a onclick="MyArticles()">Articles</a></li>
+                        <li><a onclick="MyResearches()">Researches</a></li>
+
+                    </ul>
+
+                </div>
+                <!-- Content Nav End -->
+                <!-- Profile Details Start -->
+                <div class="profile--details fs--14" id="ProfileItem">
+                    <!-- Profile Item Start -->
+                    <div class="profile--item">
+                        <div class="profile--heading">
+                            <h3 class="h4 fw--700">
+                                <span class="mr--4">About Me</span>
+                                <i class="ml--10 text-primary fa fa-caret-right"></i>
+                            </h3>
+                        </div>
+
+                        <div class="profile--info">
+                            <table class="table">
+                                <tr>
+                                    <th class="fw--700 text-darkest">Full Name</th>
+                                    <td>@Model.FirstName @Model.LastName</td>
+                                </tr>
+                                <tr>
+                                    <th class="fw--700 text-darkest">Date of Birth</th>
+                                    <td>@Model.DOB.Day / @Model.DOB.Month / @Model.DOB.Year</td>
+                                </tr>
+                                <tr>
+                                    <th class="fw--700 text-darkest">Contact Number</th>
+                                    <td>@Model.MoNumber</td>
+                                </tr>
+                                <tr>
+                                    <th class="fw--700 text-darkest">City Name</th>
+                                    <td>@Model.tblcity.CityName</td>
+                                </tr>
+                                <tr>
+                                    <th class="fw--700 text-darkest">Email</th>
+                                    <td>@Model.Email</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- Profile Item End -->
+                </div>
+                <!-- Profile Details End -->
+            </div>
+        </div>
+        <!-- Main Content End -->
+    </div>
+</section>
+<!-- Page Wrapper End -->
+
+<script>
+
+    function MyArticles() {
+        $.ajax({
+            url: "@Url.Action("MyArticles","User")?uid="+@Model.UserID,
+            success: function (result) {
+                $("#ProfileItem").html(result);
+            }
+        });
+    }
+
+    function MyInfo() {
+        $.ajax({
+            url: "@Url.Action("MyInfo","User")",
+            success: function (result) {
+                $("#ProfileItem").html(result);
+            }
+        });
+    }
+
+    function MyResearches() {
+        $.ajax({
+            url: "@Url.Action("MyResearches","User")?uid="+@Model.UserID,
+            success: function (result) {
+                $("#ProfileItem").html(result);
+            }
+        });
+    }
+
+    function MyResearcheReq() {
+        $.ajax({
+            url: "@Url.Action("MyResearcheReq","User")",
+            success: function (result) {
+                $("#ProfileItem").html(result);
+            }
+        });
+    }
+
+    function changeProfile() {
+        $.ajax({
+            url: "@Url.Action("changeProfile","User")",
+            success: function (result) {
+                $("#ProfileItem").html(result);
+            }
+        });
+    }
+
+    function changePassword() {
+        $.ajax({
+            url: "@Url.Action("changePassword","User")",
+            success: function (result) {
+                $("#ProfileItem").html(result);
+            }
+        });
+    }
+
+</script>

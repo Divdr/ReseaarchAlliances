@@ -1,0 +1,42 @@
+﻿@model Reseaarch_Alliances.Models.tblresearch
+
+@{
+    ViewBag.Title = "EditFeaturedResearch";
+    Layout = "~/Views/Shared/_User.cshtml";
+}
+
+    <div class="contact--section pt--50">
+        <div class="container">
+
+            <div class="col-md-12 pb--60">
+                <!-- Contact Form Start -->
+                <div class="contact--form" data-form="ajax">
+                    <div class="contact--title">
+                        <h3 class="h4">Update Featured Image</h3>
+                    </div>
+                    @using (Html.BeginForm("UpdateFeaturedResearch", "Research", FormMethod.Post,new { enctype = "multipart/form-data" }))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-horizontal">
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            @Html.HiddenFor(model => model.ResearchID)
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.FeaturedImage, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <input type="file"  class="form-control" name="FeaturedImage" id="FeaturedImage" />
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" value="Update" class="btn btn-default" />
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+                <!-- Contact Form End -->
+            </div>
+        </div>
+    </div>

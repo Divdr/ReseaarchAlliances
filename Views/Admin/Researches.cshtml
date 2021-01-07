@@ -1,0 +1,86 @@
+﻿@model IEnumerable<Reseaarch_Alliances.Models.tblresearch>
+
+@{
+    ViewBag.Title = "Researches";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">@ViewBag.Title</h3>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+        <table id="example1" class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.tblsubcategory.SubCategoryName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.tbluser.UserName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Title)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Description)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FeaturedImage)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Status)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.NoOfViews)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CreatedDt)
+                    </th>
+                </tr>
+
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.tblsubcategory.SubCategoryName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.tbluser.UserName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                            <img src="~/Content/Images/Research/@item.FeaturedImage" height="50px" width="50px" />
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Status)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NoOfViews)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CreatedDt)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <!-- /.card-body -->
+</div>
+
+
+
+
+
+
+
+

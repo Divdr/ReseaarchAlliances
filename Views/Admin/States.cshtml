@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Reseaarch_Alliances.Models.tblstate>
+
+@{
+    ViewBag.Title = "States";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">@ViewBag.Title</h3>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+        <table id="example1" class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.StateName)
+                    </th>
+                    <th>
+                        View More
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StateName)
+                        </td>
+                        <td>
+                            <a class="btn btn-default" href="@Url.Action("CityByState","Admin",new { id=item.StateID})">View Cities</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <!-- /.card-body -->
+</div>
+

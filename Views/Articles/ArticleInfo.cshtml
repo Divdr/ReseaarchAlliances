@@ -1,0 +1,190 @@
+﻿@model Reseaarch_Alliances.Models.tblarticle
+
+@{
+    ViewBag.Title = "Article Info";
+    Layout = "~/Views/Shared/_User.cshtml";
+
+    IEnumerable<Reseaarch_Alliances.Models.tblarticlecomment> ArticleComments = ViewData["ArticleComments"] as IEnumerable<Reseaarch_Alliances.Models.tblarticlecomment>;
+}
+
+<!-- Page Header Start -->
+<div class="page--header pt--60 pb--60 text-center" data-bg-img="img/page-header-img/bg.jpg" data-overlay="0.85">
+    <div class="container">
+        <div class="title">
+            <h2 class="h1 text-white">Article</h2>
+        </div>
+
+        <ul class="breadcrumb text-gray ff--primary">
+            <li><a href="#" class="btn-link">Home</a></li>
+            <li><a href="#" class="btn-link">Articles</a></li>
+            <li class="active"><span class="text-primary">Article Details</span></li>
+        </ul>
+    </div>
+</div>
+<!-- Page Header End -->
+<!-- Page Wrapper Start -->
+<section class="page--wrapper pt--80 pb--20">
+    <div class="container">
+        @{ 
+            var totalComment = ArticleComments.Count();
+        }
+            <!-- Main Content Start -->
+            <div class="main--content col-md-10 pb--30" data-trigger="stickyScroll">
+                <div class="main--content-inner">
+                    <!-- Post Item Start -->
+                    <div class="post--item post--single pb--30">
+                        <!-- Post Image Start -->
+                        <div class="post--img">
+                            <img src="~/Content/Images/Post/@Model.FeaturedImage" alt="">
+                        </div>
+                        <!-- Post Image End -->
+                        <!-- Post Info Start -->
+                        <div class="post--info">
+                            <!-- Post Meta Start -->
+                            <div class="post--meta">
+                                <ul class="nav">
+                                    <li>
+                                        <a onclick="likeUnlike(@Model.ArticleID)" style="cursor:pointer" id="@Model.ArticleID">
+                                            @if (ViewBag.ArtLike)
+                                            {
+                                                <i style="color:red;font-size:20px" class="fa fa-heart"></i>
+                                            }
+                                            else
+                                            {
+                                                <i style="color:red;font-size:20px" class="fa fa-heart-o"></i>
+                                            }
+
+                                        </a>
+                                    </li>
+                                    
+                                    <li>
+                                        <a href="#">
+                                            <i class="mr--8 fa fa-calendar-o"></i>
+                                            <span>@Model.CreatedDt</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="mr--8 fa fa-comments-o"></i>
+                                            <span>@totalComment Comments</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- Post Meta End -->
+                            <!-- Post Title Start -->
+                            <div class="post--title mt--10">
+                                <h3 class="h4">@Model.Title</h3>
+                            </div>
+                            <!-- Post Title End -->
+                            <!-- Post Content Start -->
+                            <div class="post--content text-darker mt--10">
+                                <p>@Model.Description</p>
+                            </div>
+                            <!-- Post Content End -->
+                            <!-- Post Footer Start -->
+                            <div class="post--footer">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <!-- Post Meta Start -->
+                                        <div class="post--meta">
+                                            <ul class="nav">
+                                                <li>
+                                                    <i class="mr--8 fa fa-folder-open-o"></i>
+
+                                                    <a href="#"><span>@Model.tblsubcategory.SubCategoryName</span></a>
+
+                                                </li> 
+                                            </ul>
+                                        </div>
+                                        <!-- Post Meta End -->
+                                    </div>
+                                    <div class="col-sm-6" style="height:100px;">
+                                        <img src="~/Content/Images/User/@Model.tbluser.ProfilePic" style="height:80px;width:80px" alt="">
+                                        <a href="@Url.Action("Index","User",new { id=Model.tbluser.UserID })" class="btn-link" style="margin-left:20px;font-size:1.5em">@Model.tbluser.FirstName @Model.tbluser.LastName</a
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Post Footer End -->
+                        </div>
+                        <!-- Post Info End -->
+                    </div>
+                    <!-- Post Item End -->
+
+                    <!-- Post Author Start -->
+                    <div class="post--author row pt--40 pb--30">
+                        <form method="post" action="@Url.Action("PostComment","Articles")">
+                            <div class="col-md-8 form-group">
+                                <input type="text" name="Comment" class="form-control" placeholder="Enter Comment" />
+                                <input type="hidden" name="ArticleID"  value="@Model.ArticleID" />
+                            </div>
+
+                            <div class="col-md-4 form-group">
+                                <input type="submit" class="form-control btn btn-info" value="comment" />
+                            </div>
+                        </form>
+                    </div>
+                    <!-- Post Author End -->
+
+                    <!-- Comment List Start -->
+                    <div class="comment--list pt--40">
+                        <h4 class="h4 pb--20">@totalComment Comments</h4>
+
+                        <ul class="comment--items nav">
+                            @foreach (var item in ArticleComments)
+                            {
+                                <li>
+                                    <!-- Comment Item Start -->
+                                    <div class="comment--item mr--15 clearfix">
+                                        <div class="img float--left" data-overlay="0.3" data-overlay-color="primary">
+                                            <img src="~/Content/Images/User/@item.tbluser.ProfilePic" alt="">
+                                        </div>
+
+                                        <div class="info ov--h">
+                                            <div class="header clearfix">
+                                                <div class="meta float--left">
+                                                    <p class="fs--14 fw--700 text-darkest">
+                                                        <a href="@Url.Action("Index","User",new { id=item.tbluser.UserID })">@item.tbluser.UserName</a>
+                                                    </p>
+
+                                                    <p>
+                                                        <i class="mr--10 fa fa-clock-o"></i>
+                                                        <span>@item.CreatedDt</span>
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                            <div class="content pt--8 fs--14">
+                                                <p>
+                                                    @item.Comment
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Comment Item End -->
+                                </li>
+                            }
+
+                        </ul>
+                    </div>
+                    <!-- Comment List End -->
+                </div>
+            </div>
+            <!-- Main Content End -->
+    </div>
+</section>
+<!-- Page Wrapper End -->
+
+<script>
+
+    function likeUnlike(id) {
+        var artid = id;
+        $.ajax({
+            url: "@Url.Action("likeUnlike","Articles")?id="+id,
+            success: function (result) {
+                $("#" + artid).html(result);
+            }
+        });
+    }
+
+</script>
